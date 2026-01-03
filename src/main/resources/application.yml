@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: contract-master
+
+duckdb:
+  database: ":memory:"
+  parquet-path: "storage/parquet/awards"
+
+server:
+  port: 8080
