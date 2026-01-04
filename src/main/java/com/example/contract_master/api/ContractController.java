@@ -24,7 +24,9 @@ public class ContractController {
   public List<ExpiringContractDto> expiring(
       @RequestParam(defaultValue = "6") Integer minMonths,
       @RequestParam(defaultValue = "24") Integer maxMonths,
-      @RequestParam(required = false) String agency
+      @RequestParam(required = false) String agency,
+      @RequestParam(required = false) String naics,
+      @RequestParam(required = false) String vehicle
   ) {
     return repo.findExpiringContracts(minMonths, maxMonths, agency);
   }

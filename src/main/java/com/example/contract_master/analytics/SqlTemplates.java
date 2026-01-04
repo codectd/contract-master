@@ -8,9 +8,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class SqlTemplates {
 
-  public String expiringContracts() {
-    return read("sql/expiring_contracts.sql");
-  }
+    public String expiringContractsQuery() {
+        return read("sql/expiring_contracts.sql");
+      }
+      
+      public String partnerProfileQuery() {
+        return read("sql/partner_profile.sql");
+      }
+      
+      public String partnerSearchQuery() {
+        return read("sql/partner_search.sql");
+      }
+      
 
   private String read(String path) {
     try {
