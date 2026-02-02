@@ -20,14 +20,22 @@ public class ContractController {
     this.repo = repo;
   }
 
+  // Example:
+  // /api/contracts/expiring?minMonths=6&maxMonths=24&agency=VA&limit=100&offset=0
   @GetMapping("/expiring")
   public List<ExpiringContractDto> expiring(
-      @RequestParam(defaultValue = "6") Integer minMonths,
-      @RequestParam(defaultValue = "24") Integer maxMonths,
+      @RequestParam(defaultValue = "6") int minMonths,
+      @RequestParam(defaultValue = "24") int maxMonths,
       @RequestParam(required = false) String agency,
-      @RequestParam(required = false) String naics,
-      @RequestParam(required = false) String vehicle
+      @RequestParam(defaultValue = "100") int limit,
+      @RequestParam(defaultValue = "0") int offset
   ) {
-    return repo.findExpiringContracts(minMonths, maxMonths, agency);
+    return repo.findExpiringContracts(
+        minMonths,
+        maxMonths,
+        agency,
+        limit,
+        offset
+    );
   }
 }

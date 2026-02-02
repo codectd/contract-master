@@ -45,7 +45,7 @@ public class AwardNormalizer {
   public Path writeNormalizedCsv(List<AwardRow> rows, Path outFile) throws IOException {
     Files.createDirectories(outFile.getParent());
     try (BufferedWriter w = Files.newBufferedWriter(outFile, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
-      w.write("award_id,recipient_name,start_date,end_date,award_amount,awarding_agency,awarding_sub_agency,is_active,months_to_expiration\n");
+      w.write("award_id,recipient_name,start_date,end_date,award_amount,awarding_agency,is_active,months_to_expiration\n");
       for (AwardRow row : rows) {
         w.write(csv(row.awardId())); w.write(",");
         w.write(csv(row.recipientName())); w.write(",");

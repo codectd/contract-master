@@ -43,8 +43,6 @@ public class DuckDbInitializer {
               recipient_name VARCHAR,
               recipient_uei VARCHAR,
               awarding_agency VARCHAR,
-              sub_agency VARCHAR,
-              naics VARCHAR,
               vehicle_normalized VARCHAR,
               award_amount DOUBLE,
               potential_total_amount DOUBLE,

@@ -9,15 +9,15 @@ import org.springframework.stereotype.Component;
 public class SqlTemplates {
 
     public String expiringContractsQuery() {
-        return read("sql/expiring_contracts.sql");
+        return read("sql/views/expiring_contracts_view.sql");
       }
       
       public String partnerProfileQuery() {
-        return read("sql/partner_profile.sql");
+        return read("sql/views/partner_profile_view.sql");
       }
       
       public String partnerSearchQuery() {
-        return read("sql/partner_search.sql");
+        return read("sql/views/partner_search_view.sql");
       }
       
 

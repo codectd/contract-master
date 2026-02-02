@@ -21,14 +21,13 @@ public class PartnerController {
     this.repo = repo;
   }
 
-  // Example: /api/partners/profile?name=ACME&limit=25&offset=0
+  // Example: /api/partners/profile?limit=25&offset=0
   @GetMapping("/profile")
   public List<PartnerProfileDto> profile(
-      @RequestParam String name,
       @RequestParam(defaultValue = "25") int limit,
       @RequestParam(defaultValue = "0") int offset
   ) {
-    return repo.findPartnerProfiles(name, limit, offset);
+    return repo.findPartnerProfiles(limit, offset);
   }
 
   // Example: /api/partners/search?agency=VA&limit=25&offset=0

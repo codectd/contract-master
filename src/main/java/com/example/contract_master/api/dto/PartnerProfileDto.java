@@ -1,12 +1,11 @@
 package com.example.contract_master.api.dto;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 public record PartnerProfileDto(
-    String recipientUei,
     String recipientName,
     long totalContracts,
-    BigDecimal totalCeiling,
-    long agenciesServed,
-    long vehiclesUsed
+    double totalAwardAmount,
+    List<String> agenciesServed
 ) {}
+
