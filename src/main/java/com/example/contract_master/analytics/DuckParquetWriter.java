@@ -24,7 +24,21 @@ public class DuckParquetWriter {
       // Read CSV -> temp table, then COPY to parquet
       stmt.execute("""
         CREATE OR REPLACE TABLE temp_awards AS
-        SELECT * FROM read_csv_auto('%s', header=true);
+        SELECT
+          "Award ID"                AS award_id,
+          "Recipient Name"          AS recipient_name,
+          "Recipient UEI"           AS recipient_uei,
+          "Awarding Agency"         AS awarding_agency,
+          "Contract Vehicle"        AS vehicle_normalized,
+          "Award Amount"::DOUBLE    AS award_amount,
+          "Total Potential Value"::DOUBLE AS potential_total_amount,
+          "Start Date"::DATE        AS start_date,
+          "End Date"::DATE          AS end_date,
+          "Is Active"::BOOLEAN      AS is_active,
+          "Months to Expiration"::INTEGER AS months_to_expiration,
+          "Is Prime"::BOOLEAN       AS is_prime,
+          "Likely Recompete"::BOOLEAN AS likely_recompete
+        FROM read_csv_auto('%s', header=true);
       """.formatted(csvPath.toString()));
 
       stmt.execute("""

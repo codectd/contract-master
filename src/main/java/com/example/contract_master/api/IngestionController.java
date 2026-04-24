@@ -2,6 +2,7 @@ package com.example.contract_master.api;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,12 +20,14 @@ public class IngestionController {
     this.job = job;
   }
 
+  // Example:
+  // /api/ingestion/awards?start=2024-01-01&end=2024-12-31
   @PostMapping("/awards")
   public String ingestAwards(
-      @RequestParam String start,
-      @RequestParam String end
+      @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
+      @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end
   ) throws Exception {
-    job.ingest(LocalDate.parse(start), LocalDate.parse(end));
-    return "OK";
+    job.ingest(start, end);
+    return "Ingestion complete: " + start + " -> " + end;
   }
 }

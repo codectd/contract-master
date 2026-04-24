@@ -30,32 +30,30 @@ public class DuckDbInitializer {
       try (Connection conn = dataSource.getConnection();
            Statement stmt = conn.createStatement()) {
 
-        if (hasParquet) {
-          stmt.execute("""
-            CREATE OR REPLACE VIEW contract_awards AS
-            SELECT * FROM read_parquet('storage/parquet/awards/*.parquet');
-          """);
-          System.out.println("DuckDB view 'contract_awards' ready (parquet attached)");
-        } else {
-          stmt.execute("""
-            CREATE OR REPLACE TABLE contract_awards (
-              award_id VARCHAR,
-              recipient_name VARCHAR,
-              recipient_uei VARCHAR,
-              awarding_agency VARCHAR,
-              vehicle_normalized VARCHAR,
-              award_amount DOUBLE,
-              potential_total_amount DOUBLE,
-              start_date DATE,
-              end_date DATE,
-              is_active BOOLEAN,
-              months_to_expiration INTEGER,
-              is_prime BOOLEAN,
-              likely_recompete BOOLEAN
-            );
-          """);
-          System.out.println("DuckDB table 'contract_awards' ready (empty placeholder)");
-        }
+          if (hasParquet) {
+              stmt.execute("""
+                  CREATE OR REPLACE VIEW contract_awards AS
+                  SELECT * FROM read_parquet('storage/parquet/awards/*.parquet');
+              """);
+              System.out.println("DuckDB view 'contract_awards' ready (parquet attached)");
+          } else {
+              stmt.execute("""
+                  CREATE OR REPLACE VIEW contract_awards AS
+                  SELECT
+                      NULL::VARCHAR AS award_id,
+                      NULL::VARCHAR AS recipient_name,
+                      NULL::DATE AS start_date,
+                      NULL::DATE AS end_date,
+                      NULL::DOUBLE AS award_amount,
+                      NULL::VARCHAR AS awarding_agency,
+                      NULL::VARCHAR AS awarding_sub_agency,
+                      NULL::BOOLEAN AS is_active,
+                      NULL::BIGINT AS months_to_expiration
+                  WHERE FALSE;
+              """);
+          
+              System.out.println("DuckDB empty placeholder view 'contract_awards' ready");
+          }
 
         // 2) Derived analytics views (your 3 SQL files)
         stmt.execute(sql.expiringContractsQuery());
