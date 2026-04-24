@@ -57,13 +57,31 @@ public class AnalyticsRepository {
             ORDER BY total_contracts DESC
             LIMIT ? OFFSET ?
             """,
-            (rs, i) -> new PartnerProfileDto(
-                rs.getString("recipient_name"),
-                rs.getLong("total_contracts"),
-                rs.getDouble("total_award_amount"),
-                (List<String>) rs.getObject("agencies_served")
-            ),
-            limit, offset
+            (rs, i) -> {
+    
+                java.sql.Array agenciesArray = rs.getArray("agencies_served");
+    
+                List<String> agencies;
+    
+                if (agenciesArray == null) {
+                    agencies = List.of();
+                } else {
+                    Object[] raw = (Object[]) agenciesArray.getArray();
+    
+                    agencies = java.util.Arrays.stream(raw)
+                        .map(Object::toString)
+                        .toList();
+                }
+    
+                return new PartnerProfileDto(
+                    rs.getString("recipient_name"),
+                    rs.getLong("total_contracts"),
+                    rs.getDouble("total_award_amount"),
+                    agencies
+                );
+            },
+            limit,
+            offset
         );
     }
 

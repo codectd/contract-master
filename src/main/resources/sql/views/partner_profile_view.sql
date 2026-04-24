@@ -1,4 +1,4 @@
-CREATE OR REPLACE VIEW partner_search AS
+CREATE OR REPLACE VIEW partner_profile AS
 SELECT
   recipient_name,
   COUNT(*) AS total_contracts,
