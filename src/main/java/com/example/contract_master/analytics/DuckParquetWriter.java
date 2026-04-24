@@ -25,20 +25,16 @@ public class DuckParquetWriter {
       stmt.execute("""
         CREATE OR REPLACE TABLE temp_awards AS
         SELECT
-          "Award ID"                AS award_id,
-          "Recipient Name"          AS recipient_name,
-          "Recipient UEI"           AS recipient_uei,
-          "Awarding Agency"         AS awarding_agency,
-          "Contract Vehicle"        AS vehicle_normalized,
-          "Award Amount"::DOUBLE    AS award_amount,
-          "Total Potential Value"::DOUBLE AS potential_total_amount,
-          "Start Date"::DATE        AS start_date,
-          "End Date"::DATE          AS end_date,
-          "Is Active"::BOOLEAN      AS is_active,
-          "Months to Expiration"::INTEGER AS months_to_expiration,
-          "Is Prime"::BOOLEAN       AS is_prime,
-          "Likely Recompete"::BOOLEAN AS likely_recompete
-        FROM read_csv_auto('%s', header=true);
+          column0  AS award_id,
+          column1  AS recipient_name,
+          column2::DATE AS start_date,
+          column3::DATE AS end_date,
+          column4::DOUBLE AS award_amount,
+          column5  AS awarding_agency,
+          column6  AS awarding_sub_agency,
+          column7::BOOLEAN AS is_active,
+          column8::INTEGER AS months_to_expiration
+        FROM read_csv_auto('%s', header=false);
       """.formatted(csvPath.toString()));
 
       stmt.execute("""
